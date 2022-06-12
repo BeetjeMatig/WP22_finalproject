@@ -1,0 +1,19 @@
+.game-container {
+    margin-top: 20px;
+}
+
+.player-box {
+    margin-bottom: 10px;
+}
+
+.name {
+    margin-bottom: 0px;
+}
+
+.progress {
+    height: 25px;
+}
+
+.game-box {
+    margin-top: 50px;
+}

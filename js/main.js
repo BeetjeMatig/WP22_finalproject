@@ -1,13 +1,17 @@
 function validateInput () {
-    let input = document.getElementById("Input").value;
+    let input = $('#inputArea').val();
+    let sentence = $('#sentence').text();
     if (aContainsB(sentence, input)) {
-        document.getElementById("Input").style.color="green";
+        $('#inputArea')[0].style.color="green";
     } else {
-        document.getElementById("Input").style.color="red";
+        $('#inputArea')[0].style.color="red";
     }
 }
-
 
 function aContainsB (a, b) {
     return a.indexOf(b) >= 0;
 }
+
+$(document).keyup(function () {
+    validateInput();
+});

@@ -27,7 +27,7 @@ function p_print($array){
 <body>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="../index.php">TypeRacer</a>
+        <a class="navbar-brand" href="../index.php">HypeType</a>
         <ul class="navbar-nav mr-auto">
             <?php $active = $navigation['active']; ?>
             <?php foreach($navigation['items'] as $title => $url){

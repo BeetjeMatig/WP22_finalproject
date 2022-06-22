@@ -14,6 +14,7 @@ include __DIR__ . '/tpl/head.php';
 include __DIR__ . '/tpl/body_start.php';
 ?>
 
+<script src="js/main.js" defer></script>
 <div class="game-container">
     <?php
     include __DIR__ . '/tpl/player_bar.php';
@@ -34,7 +35,7 @@ include __DIR__ . '/tpl/body_start.php';
         <textarea class="form-control" id="inputArea" rows="3"></textarea>
     </div>
 </div>
-<script src="js/main.js" defer></script>
+
 
 
 <?php

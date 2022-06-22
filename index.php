@@ -8,7 +8,7 @@ $navigation = Array(
     )
 );
 
-$sentence_json = file_get_contents(__DIR__.'/json/sentences.json');
+$sentence_json = file_get_contents(__DIR__.'/json/test.json');
 $sentence_array = json_decode($sentence_json, true);
 include __DIR__ . '/tpl/head.php';
 include __DIR__ . '/tpl/body_start.php';
@@ -30,7 +30,7 @@ include __DIR__ . '/tpl/body_start.php';
 
     <div class="game-box">
         <blockquote class="blockquote">
-            <p class="text-center" id="sentence"><?php echo $trimmed?></p>
+            <p class="text-center" id="sentence"><span class="highlight" id="highlight"></span><span id="original"><?php echo $trimmed?></span></p>
         </blockquote>
         <textarea class="form-control" id="inputArea" rows="3"></textarea>
     </div>

@@ -29,27 +29,27 @@
     border: 1px solid #e2e2e2;
     height: 40px;
     position: relative;
+}
 
-    /* .__display {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        top: 0px;
-        left: 0px;
-        text-align: center;
-        line-height: 40px;
-        z-index: 30;
-    }
+.progress-bar > .__completed {
+    background: linear-gradient(187deg, rgb(156 133 18 / 74%) 0%, #caaf4e 100%);
+    color: #fff;
+    width: 0%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    z-index: 10;
+    border-radius: 3px;
+}
 
-    .__completed {
-        background: linear-gradient(187deg, rgb(156 133 18 / 74%) 0%, #caaf4e 100%);
-        color: #fff;
-        width: 0%;
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        height: 100%;
-        z-index: 10;
-        border-radius: 3px;
-    } */
+.progress-bar > .__display {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    text-align: center;
+    line-height: 40px;
+    z-index: 30;
 }

@@ -11,7 +11,7 @@ function Dashboard() {
     const [uploadProgress, setUploadProgress] = useState(null);
 
     useEffect(() => {
-        const socket = io('http://localhost:3000/api');
+        const socket = io('http://localhost:5555/api');
         socket.emit('connectInit', thisSessionId);
         socket.on('uploadProgress', (data) => {
             setUploadProgress(data);

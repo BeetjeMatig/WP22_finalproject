@@ -1,7 +1,6 @@
 //update server
 //implementation from https://jaygould.co.uk/2020-10-24-big-data-pt-2-socket-progress-bar/
 
-
 const uploadedAdresses = uploadedDataArray
 const originLocationData = objectContainingLatLngofOriginLocation
 const searchRadius = 10

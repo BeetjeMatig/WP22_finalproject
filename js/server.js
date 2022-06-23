@@ -1,4 +1,4 @@
-//server side
+// server side
 // implementation from https://jaygould.co.uk/2020-10-24-big-data-pt-2-socket-progress-bar/
 // npm install socket.io
 

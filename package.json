@@ -1,0 +1,23 @@
+{
+  "name": "wp22_finalproject",
+  "version": "1.0.0",
+  "description": "Final project for Web Programming course at the RUG 2021/2022",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BeetjeMatig/WP22_finalproject.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BeetjeMatig/WP22_finalproject/issues"
+  },
+  "homepage": "https://github.com/BeetjeMatig/WP22_finalproject#readme",
+  "dependencies": {
+    "socket.io": "^4.5.1"
+  }
+}

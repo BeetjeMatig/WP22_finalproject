@@ -63,6 +63,7 @@ function checkWinCondition (data) {
     if (data.score === 100) {
         console.log("de andere persoon is de winnaar");
         $("#winner").removeClass("hidden");
+        startConfetti();
     }
 }
 

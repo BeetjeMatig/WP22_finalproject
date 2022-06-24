@@ -15,6 +15,7 @@ include __DIR__ . '/tpl/body_start.php';
 ?>
 
 <script src="js/main.js" defer></script>
+<script src="js/broadcast.js" defer></script>
 <div class="game-container">
     <?php
     include __DIR__ . '/tpl/player_bar.php';

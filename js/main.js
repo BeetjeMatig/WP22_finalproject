@@ -1,3 +1,16 @@
+const bc = new BroadcastChannel('broadcast-channe;');
+const input = document.querySelector('inputArea');
+
+bc.onmessage = (MessageEvent) => {
+    if (MessageEvent.data == 'update_array') {
+        console.log("update")
+    }
+}
+
+function sendArray() {
+    bc.postMessage('update_array')
+}
+
 function validateInput (keycode) {
     let input = $('#inputArea').val();
     let sentence = $('#sentence').text();
@@ -25,7 +38,6 @@ function changespan (keycode) {
         var newText = highlighText.concat(character)
         $('#highlight').empty();
         $('#highlight').append(newText);
-        console.log(character)
     }
     if (checkWinCondition() == 1) {
         createScore(new Date().getTime());
@@ -55,11 +67,6 @@ function createScore (time) {
         id: 1,
         score: 2
     }
-    const fs = require("fs");
-    let scoresJson = fs.readFileSync("../json/scores.json","utf-8");
-    let scores = JSON.parse(scoresJson);
-    users.push(obj);
-    scoresJson = JSON.stringify(scores);
 }
 
 $(document).keyup(function (event) {
@@ -69,4 +76,7 @@ $(document).keyup(function (event) {
     var keycode = event.key;
     validateInput(keycode);
     timer();
+    sendArray();
 });
+
+

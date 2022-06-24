@@ -53,3 +53,7 @@
     line-height: 40px;
     z-index: 30;
 }
+
+.hidden {
+    visibility:hidden;
+}

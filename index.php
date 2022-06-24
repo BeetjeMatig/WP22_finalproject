@@ -35,6 +35,8 @@ include __DIR__ . '/tpl/body_start.php';
         </blockquote>
         <textarea class="form-control" id="inputArea" rows="3"></textarea>
     </div>
+
+    <p id="winner" class="hidden">de andere won ofzo</p>
 </div>
 
 

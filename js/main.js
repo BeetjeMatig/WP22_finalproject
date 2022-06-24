@@ -1,14 +1,19 @@
 const bc = new BroadcastChannel('broadcast-channe;');
 const input = document.querySelector('inputArea');
-
-bc.onmessage = (MessageEvent) => {
-    if (MessageEvent.data == 'update_array') {
-        console.log("update")
-    }
+var obj = {
+    // id: 1,
+    score: 0,
+    startTime: 0,
+    stopTime: 0
 }
 
-function sendArray() {
-    bc.postMessage('update_array')
+bc.onmessage = (MessageEvent) => {
+    console.log(MessageEvent.data);
+    checkWinCondition(MessageEvent.data);
+}
+
+function sendArray(obj) {
+    bc.postMessage(obj)
 }
 
 function validateInput (keycode) {
@@ -39,81 +44,30 @@ function changespan (keycode) {
         $('#highlight').empty();
         $('#highlight').append(newText);
     }
-    if (checkWinCondition() == 1) {
-        // createScore(new Date().getTime());
-        createScore(index);
-    }
+    createScore(obj);
 }
 
-// function timer (index) {
-//     if (index == 0) {
-//         var start = new Date().getTime();
-//         return start
-//     } else if (index == 1) {
-//         var time = new Date().getTime();
-//         return time
-//     }
-// }
-
-function checkWinCondition () {
-    if ($('#original').text().length === 0) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-// array met index id, progress, --> jquery, original and higlight, start time, stop time
-// function createScore (index) {
-//     let progress = $('#progress').text();
-//     let original = $('#original').text();
-//     let highlight = $('#highlight').text();
-//     let start = $('#start').text();
-//     let stop = $('#stop').text();
-//     let score = {
-//         id: index,
-//         progress: progress,
-//         original: original,
-//         highlight: highlight,
-//         start: start,
-//         stop: stop
-//     }
-//     scores.push(score);
-//     console.log(scores);
-// }
-function createScore (index){ //, time) {
+function createScore (obj) {
     let original = $('#original').text().length;
     let highlight = $('#highlight').text().length;
-    let score = highlight / (original + highlight) * 100;
-    const fs = require('fs');
-    var obj = {
-        id: 1,
-        score: score,
-        startTime: null,
-        stopTime: null
-    }
-    if (index === 0) {
+    obj.score = highlight / (original + highlight) * 100;
+    if ($('#highlight').text().length === 1) {
         obj.startTime = new Date().getTime();
-    } else if (index === 1) {
+    } else if ($('#original').text().length === 0) {
         obj.stopTime = new Date().getTime();
     }
-    scores.push(obj);
-    // const fs = require("fs");
-    // let scoresJson = fs.readFileSync("../json/scores.json","utf-8");
-    // let scores = JSON.parse(scoresJson);
-    // users.push(obj);
-    // scoresJson = JSON.stringify(scores);
+    return obj;
+}
+
+function checkWinCondition (data) {
+    if (data.score === 100) {
+        console.log("de andere persoon is de winnaar");
+        $("#winner").removeClass("hidden");
+    }
 }
 
 $(document).keyup(function (event) {
-    if ($('#highlight').text().length == 1) {
-        // var start = timer(0)
-        createScore(0);
-    }
     var keycode = event.key;
     validateInput(keycode);
-    timer();
-    sendArray();
+    sendArray(createScore(obj));
 });
-
-

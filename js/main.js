@@ -10,10 +10,11 @@ var obj = {
 bc.onmessage = (MessageEvent) => {
     console.log(MessageEvent.data);
     checkWinCondition(MessageEvent.data);
+    $("#opponent-bar").css('width', MessageEvent.data.score + "%");
 }
 
 function sendArray(obj) {
-    bc.postMessage(obj)
+    bc.postMessage(obj);
 }
 
 function validateInput (keycode) {
@@ -62,8 +63,8 @@ function createScore (obj) {
 function checkWinCondition (data) {
     if (data.score === 100) {
         console.log("de andere persoon is de winnaar");
-        $("#winner").removeClass("hidden");
-        startConfetti();
+        $("#loser").removeClass("hidden");
+        $('.game-container').css("visibility", "hidden")
     }
 }
 
@@ -71,4 +72,20 @@ $(document).keyup(function (event) {
     var keycode = event.key;
     validateInput(keycode);
     sendArray(createScore(obj));
+    $("#own-bar").css('width', obj.score + "%")
+    if (obj.score === 100) {
+        startConfetti();
+        $("#winner").removeClass("hidden");
+        $('.game-container').css("visibility", "hidden")
+    }
 });
+
+$(document).on('keypress',function(e) {
+    if(e.key === 'Enter') {
+        if(obj.score === 0) {
+            $('.game-container').css("visibility", "visible")
+        }
+        $('#intro-text').css("visibility", "hidden")
+    }
+});
+

@@ -1,6 +1,6 @@
 <?php
 /* Header */
-$page_title = 'Webprogramming Assignment 3';
+$page_title = 'HypeType Highscores';
 $navigation = Array(
     'active' => 'Highscores',
     'items' => Array(

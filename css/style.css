@@ -54,6 +54,18 @@
     z-index: 30;
 }
 
+#winner, #loser, #intro-text {
+    text-align: center;
+}
+
 .hidden {
-    visibility:hidden;
+    visibility: hidden;
+}
+
+.game-container {
+    visibility: hidden;
+}
+
+.intro-text {
+    visibility: visible;
 }

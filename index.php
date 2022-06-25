@@ -14,13 +14,10 @@ include __DIR__ . '/tpl/head.php';
 include __DIR__ . '/tpl/body_start.php';
 ?>
 
-<script src="js/main.js" defer></script>
-<script src="js/broadcast.js" defer></script>
-<script src="styleJS/confetti.js" defer></script>
+<p id="intro-text">Press enter to start the game!</p>
+
 <div class="game-container">
     <?php
-    include __DIR__ . '/tpl/player_bar.php';
-    include __DIR__ . '/tpl/player_bar.php';
     include __DIR__ . '/tpl/player_bar.php';
     ?>
 
@@ -30,6 +27,7 @@ include __DIR__ . '/tpl/body_start.php';
     $trimmed = str_replace('"', "", $sentence_text);
     ?>
 
+
     <div class="game-box">
         <blockquote class="blockquote">
             <p class="text-center" id="sentence"><span class="highlight" id="highlight"></span><span id="original"><?php echo $trimmed?></span></p>
@@ -37,9 +35,12 @@ include __DIR__ . '/tpl/body_start.php';
         <textarea class="form-control" id="inputArea" rows="3"></textarea>
     </div>
 
-    <p id="winner" class="hidden">de andere won ofzo</p>
 </div>
 
+<div class="winner-container">
+    <h3 id="loser" class="hidden">Gefeliciteerd, je hebt verloren!</h3>
+    <h3 id="winner" class="hidden">Jammer, je hebt gewonnen.</h3>
+</div>
 
 
 <?php

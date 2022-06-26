@@ -23,7 +23,7 @@ include __DIR__ . '/tpl/body_start.php';
 
     <div class="game-box">
         <blockquote class="blockquote">
-            <p class="text-center" id="sentence"><span class="highlight" id="highlight"></span><span id="original"><?php echo $trimmed?></span></p>
+            <p class="text-center" id="sentence"><span class="highlight" id="highlight"></span><span id="original"></span></p>
         </blockquote>
         <textarea class="form-control" id="inputArea" rows="3"></textarea>
     </div>

@@ -1,17 +1,36 @@
 const bc = new BroadcastChannel('broadcast-channe;');
 const input = document.querySelector('inputArea');
+let sentenceID = Math.floor(Math.random() * 30);
+const jsonData = fetch("./json/sentences.json")
+    .then(response => response.json())
+    .then((data) => {
+        let sentence = data[sentenceID];
+        actualSentence = sentence["context"];
+        console.log(actualSentence);
+    });
+
 var obj = {
     // id: 1,
     score: 0,
     startTime: 0,
-    stopTime: 0
+    stopTime: 0,
+    started: 0,
+    sentence: ""
 }
 
 bc.onmessage = (MessageEvent) => {
+    console.log(obj.started);
+    if(MessageEvent.data.started === 1) {
+        if(obj.started === 0) {
+            $("#original").html(MessageEvent.data.sentence);
+            obj.started = 1;
+            $(".game-container").css("visibility", "visible");
+            $('#intro-text').css("visibility", "hidden");
+    }
     console.log(MessageEvent.data);
     checkWinCondition(MessageEvent.data);
     $("#opponent-bar").css('width', MessageEvent.data.score + "%");
-}
+}}
 
 function sendArray(obj) {
     bc.postMessage(obj);
@@ -85,7 +104,11 @@ $(document).on('keypress',function(e) {
         if(obj.score === 0) {
             $('.game-container').css("visibility", "visible")
         }
-        $('#intro-text').css("visibility", "hidden")
+        $('#intro-text').css("visibility", "hidden");
+        if(obj.started === 0) {
+            $("#original").html(actualSentence);
+            obj.sentence = actualSentence;
+            obj.started = 1;
+        }
     }
 });
-

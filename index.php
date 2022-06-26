@@ -8,8 +8,6 @@ $navigation = Array(
     )
 );
 
-$sentence_json = file_get_contents(__DIR__.'/json/test.json');
-$sentence_array = json_decode($sentence_json, true);
 include __DIR__ . '/tpl/head.php';
 include __DIR__ . '/tpl/body_start.php';
 ?>
@@ -21,11 +19,6 @@ include __DIR__ . '/tpl/body_start.php';
     include __DIR__ . '/tpl/player_bar.php';
     ?>
 
-    <?php
-    $sentence = $sentence_array[rand(0, count($sentence_array) - 1)];
-    $sentence_text = $sentence['context'];
-    $trimmed = str_replace('"', "", $sentence_text);
-    ?>
 
 
     <div class="game-box">
@@ -36,6 +29,7 @@ include __DIR__ . '/tpl/body_start.php';
     </div>
 
 </div>
+
 
 <div class="winner-container">
     <h3 id="loser" class="hidden">Gefeliciteerd, je hebt verloren!</h3>

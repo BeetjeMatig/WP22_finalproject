@@ -10,7 +10,6 @@ const jsonData = fetch("./json/sentences.json")
     });
 
 var obj = {
-    // id: 1,
     score: 0,
     startTime: 0,
     stopTime: 0,
@@ -54,6 +53,7 @@ function aContainsB (a, b) {
 function changespan (keycode) {
     let sentence = $('#original').text();
     let character = sentence.charAt(0);
+    console.log(keycode)
     if (character == keycode) {
         var trimmed = sentence.substring(1);
         $('#original').empty();
@@ -88,6 +88,18 @@ function checkWinCondition (data) {
 }
 
 $(document).keyup(function (event) {
+    var keycode = event.key;
+    validateInput(keycode);
+    sendArray(createScore(obj));
+    $("#own-bar").css('width', obj.score + "%")
+    if (obj.score === 100) {
+        startConfetti();
+        $("#winner").removeClass("hidden");
+        $('.game-container').css("visibility", "hidden")
+    }
+});
+
+$(document).keydown(function (event) {
     var keycode = event.key;
     validateInput(keycode);
     sendArray(createScore(obj));

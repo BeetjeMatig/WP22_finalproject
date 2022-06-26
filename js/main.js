@@ -53,7 +53,6 @@ function aContainsB (a, b) {
 function changespan (keycode) {
     let sentence = $('#original').text();
     let character = sentence.charAt(0);
-    console.log(keycode)
     if (character == keycode) {
         var trimmed = sentence.substring(1);
         $('#original').empty();
@@ -87,19 +86,7 @@ function checkWinCondition (data) {
     }
 }
 
-$(document).keyup(function (event) {
-    var keycode = event.key;
-    validateInput(keycode);
-    sendArray(createScore(obj));
-    $("#own-bar").css('width', obj.score + "%")
-    if (obj.score === 100) {
-        startConfetti();
-        $("#winner").removeClass("hidden");
-        $('.game-container').css("visibility", "hidden")
-    }
-});
-
-$(document).keydown(function (event) {
+$(document).on('keyup keypress', function (event) {
     var keycode = event.key;
     validateInput(keycode);
     sendArray(createScore(obj));
@@ -113,11 +100,9 @@ $(document).keydown(function (event) {
 
 $(document).on('keypress',function(e) {
     if(e.key === 'Enter') {
-        if(obj.score === 0) {
-            $('.game-container').css("visibility", "visible")
-        }
-        $('#intro-text').css("visibility", "hidden");
         if(obj.started === 0) {
+            $('#intro-text').css("visibility", "hidden");
+            $('.game-container').css("visibility", "visible")
             $("#original").html(actualSentence);
             obj.sentence = actualSentence;
             obj.started = 1;

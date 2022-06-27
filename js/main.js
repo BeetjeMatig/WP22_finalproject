@@ -132,11 +132,9 @@ $(document).keydown(function (event) {
 /* If the player presses enter the game starts. */
 $(document).on('keypress',function(e) {
     if(e.key === 'Enter') {
-        if(obj.score === 0) {
-            $('.game-container').css("visibility", "visible")
-        }
-        $('#intro-text').css("visibility", "hidden");
         if(obj.started === 0) {
+            $('#intro-text').css("visibility", "hidden");
+            $('.game-container').css("visibility", "visible")
             $("#original").html(actualSentence);
             obj.sentence = actualSentence;
             obj.started = 1;

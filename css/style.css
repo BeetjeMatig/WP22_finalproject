@@ -1,70 +1,85 @@
 .game-container {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .player-box {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .name {
-    margin-bottom: 0px;
+	margin-bottom: 0px;
 }
 
 .progress {
-    height: 25px;
+	height: 25px;
 }
 
 .highlight {
-    color: green;
-    background-color: rgba(0,255,100,.5);
+	color: green;
+	background-color: rgba(0, 255, 100, 0.5);
 }
 
 .game-box {
-    margin-top: 50px;
+	margin-top: 50px;
 }
 
 .progress-bar {
-    width: 100%;
-    border: 1px solid #e2e2e2;
-    height: 40px;
-    position: relative;
+	width: 100%;
+	border: 1px solid #e2e2e2;
+	height: 40px;
+	position: relative;
 }
 
 .progress-bar > .__completed {
-    background: linear-gradient(187deg, rgb(156 133 18 / 74%) 0%, #caaf4e 100%);
-    color: #fff;
-    width: 0%;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    height: 100%;
-    z-index: 10;
-    border-radius: 3px;
+	background: linear-gradient(187deg, rgb(156 133 18 / 74%) 0%, #caaf4e 100%);
+	color: #fff;
+	width: 0%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	z-index: 10;
+	border-radius: 3px;
 }
 
 .progress-bar > .__display {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0px;
-    left: 0px;
-    text-align: center;
-    line-height: 40px;
-    z-index: 30;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0px;
+	left: 0px;
+	text-align: center;
+	line-height: 40px;
+	z-index: 30;
 }
 
-#winner, #loser, #intro-text {
-    text-align: center;
+#winner,
+#loser,
+#intro-text {
+	text-align: center;
 }
 
 .hidden {
-    visibility: hidden;
+	display: none;
 }
 
 .game-container {
-    visibility: hidden;
+	visibility: hidden;
 }
 
-.intro-text {
-    visibility: visible;
+#intro-text {
+	margin-top: 40px;
+}
+
+.col-12 {
+	text-align: center;
+}
+
+.btn {
+	margin: 20px;
+}
+
+#confetti-canvas {
+	position: fixed;
+	top: 0;
 }

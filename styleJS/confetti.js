@@ -1,3 +1,6 @@
+/* We did not write this code. It was merely used to add some flair to the winner screen.
+The official download can be found here: https://www.cssscript.com/confetti-falling-animation/ */
+
 var maxParticleCount = 150; //set max confetti count
 var particleSpeed = 2; //set the particle animation speed
 var startConfetti; //call to start confetti animation

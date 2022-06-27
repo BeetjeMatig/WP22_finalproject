@@ -1,6 +1,8 @@
-const bc = new BroadcastChannel('broadcast-channe;');
+const bc = new BroadcastChannel('broadcast-channel');
 const input = document.querySelector('inputArea');
 let sentenceID = Math.floor(Math.random() * 30);
+
+/* Fetches the sentence from sentences.json that will be used in that game. */
 const jsonData = fetch("./json/sentences.json")
     .then(response => response.json())
     .then((data) => {
@@ -9,6 +11,7 @@ const jsonData = fetch("./json/sentences.json")
         console.log(actualSentence);
     });
 
+/* Object which gets send back and forth between the players. */
 var obj = {
     score: 0,
     startTime: 0,
@@ -17,6 +20,8 @@ var obj = {
     sentence: ""
 }
 
+/* The Broadcast API check that when they receive a message, if the game should start or not
+If the game has already started it will check every time if the win condition is met. */
 bc.onmessage = (MessageEvent) => {
     console.log(obj.started);
     if(MessageEvent.data.started === 1) {
@@ -35,6 +40,8 @@ function sendArray(obj) {
     bc.postMessage(obj);
 }
 
+/* This function checks if the given input is correct or not and changes the color of the
+textbox accordingly. It also calls the changeSpan function if the input is correct. */
 function validateInput (keycode) {
     let input = $('#inputArea').val();
     let sentence = $('#sentence').text();
@@ -46,14 +53,18 @@ function validateInput (keycode) {
     }
 }
 
+/* Check if the input from the textbox is still correct to the sentence. */
 function aContainsB (a, b) {
     return a.indexOf(b) >= 0;
 }
 
+/* This function changes the highlighted part of the text which is typed correctly.
+Every time a character is typed, the function checks if it should be the next character
+typed. If so, it appends the charachter to the highlghted part and it gets removed
+from the original span. The createScore function is also called. */
 function changespan (keycode) {
     let sentence = $('#original').text();
     let character = sentence.charAt(0);
-    console.log(keycode)
     if (character == keycode) {
         var trimmed = sentence.substring(1);
         $('#original').empty();
@@ -67,6 +78,8 @@ function changespan (keycode) {
     createScore(obj);
 }
 
+/* This function returns an object containing the startTime of the game, the stoptime, and
+the current score of the player from 0 to 100. */
 function createScore (obj) {
     let original = $('#original').text().length;
     let highlight = $('#highlight').text().length;
@@ -79,14 +92,19 @@ function createScore (obj) {
     return obj;
 }
 
+/* Checks the win condition of the game. If you receive the object with a score of 100
+it means that the other player has won. It will make the corresponding winner/loser 
+message appear. */
 function checkWinCondition (data) {
     if (data.score === 100) {
-        console.log("de andere persoon is de winnaar");
         $("#loser").removeClass("hidden");
         $('.game-container').css("visibility", "hidden")
     }
 }
 
+/* Every time a keyup or keydown event happens, it will check if the given input is valid
+by calling validateInput. It will also send a new object to the other player with the updated
+score. */
 $(document).keyup(function (event) {
     var keycode = event.key;
     validateInput(keycode);
@@ -111,6 +129,7 @@ $(document).keydown(function (event) {
     }
 });
 
+/* If the player presses enter the game starts. */
 $(document).on('keypress',function(e) {
     if(e.key === 'Enter') {
         if(obj.score === 0) {

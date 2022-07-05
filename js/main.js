@@ -137,6 +137,7 @@ function startGame() {
         obj.started = 1;
     }
     sendArray(obj);
+    callingAjax();
 }
 
 /* Refreshes page */
@@ -144,4 +145,21 @@ function refresh() {
     obj.refresh = 1;
     sendArray(obj);
     window.location.reload();
+}
+
+function callingAjax() {
+    $.ajax({
+        url: "./json/gamestatus.json",
+        success: function (data) {
+            console.log(data);
+        }
+    });
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            console.log(xhr.responseText);
+        }
+    }
+    xhr.open("GET", "./json/gamestatus.json");
+    xhr.send();
 }

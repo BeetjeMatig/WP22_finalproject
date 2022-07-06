@@ -18,17 +18,13 @@ include __DIR__ . '/tpl/body_start.php';
     <p>The game (currently) works like: open two instances of the game on the same device
         on two different tabs, then start typing away and see who is fastest!
     </p>
-    <form method = "post">
-    <input type="username" name="name" class="form-control" placeholder="Username">
+    <form action="scripts/add_data.php" method="POST">
+        <div class="form-group">
+            <input type="text" class="form-control" id="username" name="username">
+        </div>
+<!--        <button type="submit" name="submit" class="btn btn-primary">Submit</button>-->
     </form>
-<!--// has to come a php -->
-<!--//    if(empty($_POST['name'])) {-->
-<!--//        echo '<p>Please enter a username</p>';-->
-<!--//    } else {-->
-<!--//        echo '<p>Welcome ' . $_POST['name'] . '</p>';-->
-<!--//    }-->
-<!--//  -->
-    <button class="btn btn-primary" onclick="startGame()">Press here to start the game!</button>
+    <button class="btn btn-primary" name="submit" onclick="startGame()">Press here to start the game!</button>
     <h3>F.A.Q.</h3>
     <p><b>How do I play against somebody else on the same device?</b><br>
         That's for you to figure out not us.

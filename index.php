@@ -19,7 +19,7 @@ include __DIR__ . '/tpl/body_start.php';
         on two different tabs, then start typing away and see who is fastest!
     </p>
     <form method = "post">
-    <input type="username" name="name class="form-control" placeholder="Username">
+    <input type="username" name="name" class="form-control" placeholder="Username">
     </form>
 <!--// has to come a php -->
 <!--//    if(empty($_POST['name'])) {-->

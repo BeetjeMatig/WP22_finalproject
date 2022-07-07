@@ -6,6 +6,7 @@ if (isset($_POST['submit'])) {
 
     // Generate article ID
     $player_id = 0;
+    print($player_id);
     foreach ($playerdata as $key => $value){
         $player_id = $value['player_id'];
     }
@@ -24,7 +25,7 @@ if (isset($_POST['submit'])) {
     fclose($json_file);
 
     // Redirect to homepage
-    header("Location: ../");
+   // header("Location: ../main.");
     die();
 }
 ?>

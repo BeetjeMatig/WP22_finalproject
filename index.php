@@ -69,7 +69,6 @@ include __DIR__ . '/tpl/body_start.php';
 
 </div>
 
-
 <?php
 include __DIR__ . '/tpl/body_end.php';
 ?>

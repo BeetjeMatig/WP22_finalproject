@@ -7,16 +7,16 @@ if (isset($_POST['submit'])) {
     // Generate article ID
     $player_id = 0;
     foreach ($playerdata as $key => $value){
-        $player_id = $value['id'];
+        $player_id = $value['player_id'];
     }
     $player_id += 1;
 
-    $articles[] = [
+    array_push($playerdata, [
         'player_id' => $player_id,
         'username' => $_POST['username'],
         'score' => 0,
         'games_won' => 0
-    ];
+    ]);
 
     // Save to external file
     $json_file = fopen('../json/players.json', 'w');
@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
     fclose($json_file);
 
     // Redirect to homepage
-    header("Location: ../index.php");
+    header("Location: ../");
     die();
 }
 ?>

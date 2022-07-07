@@ -22,9 +22,10 @@ include __DIR__ . '/tpl/body_start.php';
         <div class="form-group">
             <input type="text" class="form-control" id="username" name="username">
         </div>
+        <button class="btn btn-primary" name="submit" onclick="startGame()">Press here to start the game!</button>
 <!--        <button type="submit" name="submit" class="btn btn-primary">Submit</button>-->
     </form>
-    <button class="btn btn-primary" name="submit" onclick="startGame()">Press here to start the game!</button>
+    
     <h3>F.A.Q.</h3>
     <p><b>How do I play against somebody else on the same device?</b><br>
         That's for you to figure out not us.

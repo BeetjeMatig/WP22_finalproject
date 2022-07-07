@@ -153,7 +153,7 @@ function refresh() {
 
 function callingAjax() {
     $.ajax({
-        url: "./json/gamestatus.json",
+        url: "./json/players.json",
         success: function (data) {
             console.log(data);
         }
@@ -164,6 +164,6 @@ function callingAjax() {
             console.log(xhr.responseText);
         }
     }
-    xhr.open("GET", "./json/gamestatus.json");
+    xhr.open("GET", "./json/players.json");
     xhr.send();
 }

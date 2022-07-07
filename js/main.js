@@ -18,6 +18,10 @@ var obj = {
     refresh: 0
 }
 
+function stringifyObject(obj) {
+    return JSON.stringify(obj);
+}
+
 /* The Broadcast API check that when they receive a message, if the game should start or not
 If the game has already started it will check every time if the win condition is met. */
 bc.onmessage = (MessageEvent) => {

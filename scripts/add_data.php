@@ -1,19 +1,19 @@
 <?php
 if (isset($_POST['submit'])) {
-    // Read articles
+    // Read player data
     $json_file = file_get_contents("../json/players.json");
     $playerdata = json_decode($json_file, true);
 
-    // Generate article ID
+    // Generate player ID
     $player_id = 0;
     foreach ($playerdata as $key => $value){
         $player_id = $value['player_id'];
     }
+    
     $player_id += 1;
-
     array_push($playerdata, [
         'player_id' => $player_id,
-        'username' => $_POST['username'],
+        'name' => $_POST['username'],
         'score' => 0,
         'games_won' => 0
     ]);

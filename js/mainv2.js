@@ -25,10 +25,6 @@ var opponentObj = {
     refresh: 0
 }
 
-function stringifyObject(obj) {
-    return JSON.stringify(obj);
-}
-
 /* This function checks if the given input is correct or not and changes the color of the
 textbox accordingly. It also calls the changeSpan function if the input is correct. */
 function validateInput(keycode) {
@@ -76,59 +72,19 @@ function createScore(obj) {
     return obj;
 }
 
-/* Refreshes page */
-function refresh() {
-    obj.refresh = 1;
-    sendArray(obj);
-    window.location.reload();
-}
-
-// Dont know what this does
-function callingAjax() {
-    $.ajax({
-        url: "./json/players.json",
-        success: function (data) {
-            console.log(data);
-        }
-    });
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            console.log(xhr.responseText);
-        }
-    }
-    xhr.open("GET", "./json/players.json");
-    xhr.send();
-}
-
-$(document).keyup(function (event) {
-    var keycode = event.key;
-    validateInput(keycode);
-    $("#own-bar").css('width', obj.score + "%")
-    if (obj.score === 100) {
-        startConfetti();
-        $("#winner").removeClass("hidden");
-        $('.game-container').css("visibility", "hidden");
-        $("#replay").removeClass("hidden");
-    }
-    changeOpponentData();
-});
-
-$(document).keydown(function (event) {
-    var keycode = event.key;
-    validateInput(keycode);
-    // $("#own-bar").css('width', obj.score + "%")
-    if (obj.score === 100) {
-        startConfetti();
-        $("#winner").removeClass("hidden");
-        $('.game-container').css("visibility", "hidden");
-        $("#replay").removeClass("hidden");
-    }
-    changeOpponentData();
-});
-
 function isStarted() {
-    // TODO: Check if the game is started and if not, start it.
+    if (opponentObj.started == 1) {
+        if (obj.started === 0) {
+            $("#original").html(opponentObj.sentence);
+            obj.started = 1;
+            $(".game-container").css("visibility", "visible");
+            $('#intro-text').css("display", "none");
+        } if (opponentObj.refresh === 1) {
+            window.location.reload();
+        }
+        checkWinCondition();
+        $("#opponent-bar").css('width', opponentObj.score + "%");
+    }
 }
 
 function checkWinCondition() {
@@ -166,3 +122,31 @@ function changeOpponentData() {
 function sendGameData() {
     // stuurt de data naar de server
 }
+
+$(document).keyup(function (event) {
+    var keycode = event.key;
+    validateInput(keycode);
+    $("#own-bar").css('width', obj.score + "%")
+    if (obj.score === 100) {
+        startConfetti();
+        $("#winner").removeClass("hidden");
+        $('.game-container').css("visibility", "hidden");
+        $("#replay").removeClass("hidden");
+    }
+    changeOpponentData();
+    isStarted();
+});
+
+$(document).keydown(function (event) {
+    var keycode = event.key;
+    validateInput(keycode);
+    $("#own-bar").css('width', obj.score + "%")
+    if (obj.score === 100) {
+        startConfetti();
+        $("#winner").removeClass("hidden");
+        $('.game-container').css("visibility", "hidden");
+        $("#replay").removeClass("hidden");
+    }
+    changeOpponentData();
+    isStarted();
+});

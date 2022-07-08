@@ -1,5 +1,4 @@
 <?php
-if (isset($_POST['submit'])) {
     // Read player data
     $json_file = file_get_contents("../json/players.json");
     $playerdata = json_decode($json_file, true);
@@ -10,11 +9,11 @@ if (isset($_POST['submit'])) {
     foreach ($playerdata as $key => $value){
         $player_id = $value['player_id'];
     }
-    
+
     $player_id += 1;
     array_push($playerdata, [
         'player_id' => $player_id,
-        'name' => $_POST['username'],
+        'name' => $_GET['username'],
         'score' => 0,
         'games_won' => 0
     ]);
@@ -25,7 +24,6 @@ if (isset($_POST['submit'])) {
     fclose($json_file);
 
     // Redirect to homepage
-    // header("Location: ../main.");
+    header("Location: ../game.php");
     die();
-}
 ?>

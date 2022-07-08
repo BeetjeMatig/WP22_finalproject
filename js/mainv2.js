@@ -98,7 +98,7 @@ function checkWinCondition() {
 function readGameData(callback) {
     var opponentData = new XMLHttpRequest();
     opponentData.overrideMimeType("application/json");
-    opponentData.open("GET", "../json/gamestates.json", true);
+    opponentData.open("GET", "./json/gamestates.json", true);
     opponentData.onreadystatechange = function () {
         if (opponentData.readyState == 4 && opponentData.status == 200) {
             callback(opponentData.responseText);
@@ -150,3 +150,12 @@ $(document).keydown(function (event) {
     changeOpponentData();
     isStarted();
 });
+
+$(document).keydown(function() {
+    $.ajax({
+        type: "GET",
+        url: "./scripts/update_score.php",
+        data: { score: obj.score }
+    });
+});
+

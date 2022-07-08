@@ -1,6 +1,7 @@
 const bc = new BroadcastChannel('broadcast-channel');
 const input = document.querySelector('inputArea');
 let sentenceID = Math.floor(Math.random() * 31);
+let actualPlayerID = 0;
 
 /* Fetches the sentence from sentences.json that will be used in that game. */
 const jsonData = fetch("./json/sentences.json")
@@ -9,6 +10,15 @@ const jsonData = fetch("./json/sentences.json")
         let sentence = data[sentenceID];
         actualSentence = sentence["context"];
 });
+
+$(window).on('load', function a () {
+    const playerID = fetch("./json/players.json")
+        .then(response => response.json())
+        .then((data) => {
+            let playerID = data[data.length-1];
+            actualPlayerID = playerID["player_id"];
+            console.log(actualPlayerID);
+    })})
 
 /* Object which gets send back and forth between the players. */
 var obj = {
@@ -138,6 +148,7 @@ $(document).keyup(function (event) {
 });
 
 $(document).keydown(function (event) {
+    console.log(actualPlayerID);
     var keycode = event.key;
     validateInput(keycode);
     $("#own-bar").css('width', obj.score + "%")
@@ -151,11 +162,24 @@ $(document).keydown(function (event) {
     isStarted();
 });
 
+
 $(document).keydown(function() {
-    $.ajax({
-        type: "GET",
-        url: "./scripts/update_score.php",
-        data: { score: obj.score }
-    });
-});
+    if (actualPlayerID === 1) {
+        if ($('body').is('.game')) {
+            $.ajax({
+                type: "GET",
+                url: "./scripts/update_score.php",
+                data: {score: obj.score}
+            })}}
+    if (actualPlayerID === 2) {
+        if ($('body').is('.game')) {
+            $.ajax({
+                type: "GET",
+                url: "./scripts/update_score_2.php",
+                data: {score: obj.score}
+            })}
+    }
+})
+
+
 

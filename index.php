@@ -9,6 +9,7 @@ include __DIR__ . '/tpl/head.php';
 include __DIR__ . '/tpl/body_start.php';
 ?>
 
+<body class="index">
 <div id="intro-text">
     <h1>HypeType</h1>
     <p>This game has been masterfully crafted by 3 Information Science
@@ -68,6 +69,7 @@ include __DIR__ . '/tpl/body_start.php';
     </h3>
 
 </div>
+</body>
 
 <?php
 include __DIR__ . '/tpl/body_end.php';

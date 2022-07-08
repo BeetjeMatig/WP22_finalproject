@@ -9,6 +9,7 @@ include __DIR__ . '/tpl/head.php';
 include __DIR__ . '/tpl/body_start.php';
 ?>
 
+<body class="game">
 <div>
     <?php
     include __DIR__ . '/tpl/player_bar.php';
@@ -33,3 +34,4 @@ include __DIR__ . '/tpl/body_start.php';
     </h3>
 
 </div>
+</body>

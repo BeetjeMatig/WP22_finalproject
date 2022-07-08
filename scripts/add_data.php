@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
     fclose($json_file);
 
     // Redirect to homepage
-   // header("Location: ../main.");
+    // header("Location: ../main.");
     die();
 }
 ?>

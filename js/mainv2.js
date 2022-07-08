@@ -8,7 +8,7 @@ const jsonData = fetch("./json/sentences.json")
     .then((data) => {
         let sentence = data[sentenceID];
         actualSentence = sentence["context"];
-    });
+});
 
 /* Object which gets send back and forth between the players. */
 var obj = {
@@ -18,30 +18,15 @@ var obj = {
     refresh: 0
 }
 
+var opponentObj = {
+    score: 0,
+    started: 0,
+    sentence: "",
+    refresh: 0
+}
+
 function stringifyObject(obj) {
     return JSON.stringify(obj);
-}
-
-/* The Broadcast API check that when they receive a message, if the game should start or not
-If the game has already started it will check every time if the win condition is met. */
-bc.onmessage = (MessageEvent) => {
-    if (MessageEvent.data.started === 1) {
-        if (obj.started === 0) {
-            $("#original").html(MessageEvent.data.sentence);
-            obj.started = 1;
-            $(".game-container").css("visibility", "visible");
-            $('#intro-text').css("display", "none");
-        }
-        if (MessageEvent.data.refresh === 1) {
-            window.location.reload();
-        }
-        checkWinCondition(MessageEvent.data);
-        $("#opponent-bar").css('width', MessageEvent.data.score + "%");
-    }
-}
-
-function sendArray(obj) {
-    bc.postMessage(obj);
 }
 
 /* This function checks if the given input is correct or not and changes the color of the
@@ -91,59 +76,6 @@ function createScore(obj) {
     return obj;
 }
 
-/* Checks the win condition of the game. If you receive the object with a score of 100
-it means that the other player has won. It will make the corresponding winner/loser 
-message appear. */
-function checkWinCondition(data) {
-    if (data.score === 100) {
-        $("#loser").removeClass("hidden");
-        $('.game-container').css("visibility", "hidden")
-        $("#replay").removeClass("hidden");
-    }
-}
-
-/* Every time a keyup or keydown event happens, it will check if the given input is valid
-by calling validateInput. It will also send a new object to the other player with the updated
-score. */
-$(document).keyup(function (event) {
-    var keycode = event.key;
-    validateInput(keycode);
-    sendArray(createScore(obj));
-    $("#own-bar").css('width', obj.score + "%")
-    if (obj.score === 100) {
-        startConfetti();
-        $("#winner").removeClass("hidden");
-        $('.game-container').css("visibility", "hidden");
-        $("#replay").removeClass("hidden");
-    }
-});
-
-$(document).keydown(function (event) {
-    var keycode = event.key;
-    validateInput(keycode);
-    sendArray(createScore(obj));
-    $("#own-bar").css('width', obj.score + "%")
-    if (obj.score === 100) {
-        startConfetti();
-        $("#winner").removeClass("hidden");
-        $('.game-container').css("visibility", "hidden");
-        $("#replay").removeClass("hidden");
-    }
-});
-
-/* If the player presses enter the game starts. */
-function startGame() {
-    if (obj.started === 0) {
-        $('#intro-text').css("display", "none");
-        $('.game-container').css("visibility", "visible")
-        $("#original").html(actualSentence);
-        obj.sentence = actualSentence;
-        obj.started = 1;
-    }
-    sendArray(obj);
-    callingAjax();
-}
-
 /* Refreshes page */
 function refresh() {
     obj.refresh = 1;
@@ -151,6 +83,7 @@ function refresh() {
     window.location.reload();
 }
 
+// Dont know what this does
 function callingAjax() {
     $.ajax({
         url: "./json/players.json",
@@ -161,9 +94,75 @@ function callingAjax() {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            return data;
+            console.log(xhr.responseText);
         }
     }
     xhr.open("GET", "./json/players.json");
     xhr.send();
+}
+
+$(document).keyup(function (event) {
+    var keycode = event.key;
+    validateInput(keycode);
+    $("#own-bar").css('width', obj.score + "%")
+    if (obj.score === 100) {
+        startConfetti();
+        $("#winner").removeClass("hidden");
+        $('.game-container').css("visibility", "hidden");
+        $("#replay").removeClass("hidden");
+    }
+    changeOpponentData();
+});
+
+$(document).keydown(function (event) {
+    var keycode = event.key;
+    validateInput(keycode);
+    // $("#own-bar").css('width', obj.score + "%")
+    if (obj.score === 100) {
+        startConfetti();
+        $("#winner").removeClass("hidden");
+        $('.game-container').css("visibility", "hidden");
+        $("#replay").removeClass("hidden");
+    }
+    changeOpponentData();
+});
+
+function isStarted() {
+    // TODO: Check if the game is started and if not, start it.
+}
+
+function checkWinCondition() {
+    if (opponentObj.score === 100) {
+        $("#loser").removeClass("hidden");
+        $('.game-container').css("visibility", "hidden")
+        $("#replay").removeClass("hidden");
+    }
+}
+
+function readGameData(callback) {
+    var opponentData = new XMLHttpRequest();
+    opponentData.overrideMimeType("application/json");
+    opponentData.open("GET", "../json/gamestates.json", true);
+    opponentData.onreadystatechange = function () {
+        if (opponentData.readyState == 4 && opponentData.status == 200) {
+            callback(opponentData.responseText);
+        }
+    }
+    opponentData.send(null);
+}
+
+function changeOpponentData() {
+    readGameData(function (data) {;
+        var JSONdata = JSON.parse(data);
+        opponentObj.score = JSONdata[0].score;
+        opponentObj.started = JSONdata[0].started;
+        opponentObj.sentence = JSONdata[0].sentence;
+        opponentObj.refresh = JSONdata[0].refresh;
+        console.log(JSONdata[0]);   
+        console.log(opponentObj);
+    });
+}
+
+function sendGameData() {
+    // stuurt de data naar de server
 }

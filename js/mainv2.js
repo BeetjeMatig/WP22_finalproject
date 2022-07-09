@@ -129,6 +129,15 @@ function changeOpponentData() {
     });
 }
 
+// function refresh() {
+//     obj.refresh = 1;
+//     sentArray(obj);
+//     if (opponentObj.refresh === 1) {
+//        delete_data
+//         window.location.reload();
+//     }
+// }
+
 function sendGameData() {
     // stuurt de data naar de server
 }
@@ -180,6 +189,8 @@ $(document).keydown(function() {
             })}
     }
 })
+
+
 
 
 

@@ -1,11 +1,12 @@
 <?php
-if (isset($_POST['article_id'])){
+//if (isset($_POST['player_id'])){
+//    //if empty
 
     $json_file_players = file_get_contents("../json/players.json");
     $playerdata = json_decode($json_file_players, true);
 
     foreach ($playerdata as $key => $value){
-        if ($value['id'] == $_POST['article_id']){
+        if ($value['player_id'] === $_POST['player_id']){
             unset($playerdata[$key]);
             break;
         }
@@ -20,7 +21,7 @@ if (isset($_POST['article_id'])){
     $scoresdata = json_decode($json_file_scores, true);
 
     foreach ($scoresdata as $key => $value){
-        if ($value['id'] == $_POST['article_id']){
+        if ($value['id'] == $_POST['score_id']){
             unset($scoresdata[$key]);
             break;
         }
@@ -29,5 +30,7 @@ if (isset($_POST['article_id'])){
     $json_file_scores = fopen('../json/scores.json', 'w');
     fwrite($json_file_scores, json_encode($scoresdata));
     fclose($json_file_scores);
-}
+
+    header("Location: ../game.php");
+//}
 ?>

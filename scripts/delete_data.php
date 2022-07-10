@@ -1,20 +1,14 @@
 <?php
-//    //if empty
-
     $json_file_players = file_get_contents("../json/players.json");
     $playerdata = json_decode($json_file_players, true);
 
     foreach ($playerdata as $key => $value){
-//        $player_id = $value['player_id'];
-//        echo $key['name'];
         array_pop($playerdata);;
     }
-
 
     $json_file_players = fopen('../json/players.json', 'w');
     fwrite($json_file_players, json_encode($playerdata));
     fclose($json_file_players);
-
 
     $json_file_scores = file_get_contents("../json/scores.json");
     $scoresdata = json_decode($json_file_scores, true);

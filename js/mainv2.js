@@ -128,14 +128,16 @@ function changeOpponentData() {
         console.log(opponentObj);
     });
 }
-//
-// function refresh() {
-//     obj.refresh = 1;
-//     sentArray(obj);
-//     if (opponentObj.refresh === 1) {
-//        header.location.reload();
-//     }
-// }
+
+function refresh() {
+    obj.refresh = 1;
+    sentArray(obj);
+    if (opponentObj.refresh === 1) {
+       jsonData();
+       opponentObj.refresh = 0;
+       obj.refresh = 0;
+    }
+}
 
 function sendGameData() {
     // stuurt de data naar de server

@@ -20,13 +20,12 @@ include __DIR__ . '/tpl/body_start.php';
         </blockquote>
         <textarea class="form-control" id="inputArea" rows="3"></textarea>
     </div>
-
 </div>
 
 <div class="winner-container">
     <h3 id="loser" class="hidden">
         Gefeliciteerd, je hebt verloren! <br></br>
-        <form action="../index.php" method="post">
+        <form action="game.php" method="POST">
         <button id="replay" class="btn btn-primary">RESTART GAME</button>
         </form>
         <form action="scripts/delete_data.php" method="get">
@@ -35,7 +34,7 @@ include __DIR__ . '/tpl/body_start.php';
     </h3>
     <h3 id="winner" class="hidden">
         Jammer, je hebt gewonnen. <br></br>
-        <form action="../index.php" method="post">
+        <form action="game.php" method="POST">
             <button id="replay" class="btn btn-primary">RESTART GAME</button>
         </form>
         <form action="scripts/delete_data.php" method="get">

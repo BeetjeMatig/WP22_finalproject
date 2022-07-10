@@ -128,13 +128,12 @@ function changeOpponentData() {
         console.log(opponentObj);
     });
 }
-
+//
 // function refresh() {
 //     obj.refresh = 1;
 //     sentArray(obj);
 //     if (opponentObj.refresh === 1) {
-//        delete_data
-//         window.location.reload();
+//        header.location.reload();
 //     }
 // }
 

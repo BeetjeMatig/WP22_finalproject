@@ -5,12 +5,11 @@
     $playerdata = json_decode($json_file_players, true);
 
     foreach ($playerdata as $key => $value){
-        print($playerdata[$key]['name']);
-//        if ($value['id'] === $_POST['player_id']){
-            unset($playerdata[$key]);
-            break;
-//        }
+//        $player_id = $value['player_id'];
+//        echo $key['name'];
+        array_pop($playerdata);;
     }
+
 
     $json_file_players = fopen('../json/players.json', 'w');
     fwrite($json_file_players, json_encode($playerdata));

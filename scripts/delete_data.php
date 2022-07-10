@@ -1,15 +1,15 @@
 <?php
-//if (isset($_POST['player_id'])){
 //    //if empty
 
     $json_file_players = file_get_contents("../json/players.json");
     $playerdata = json_decode($json_file_players, true);
 
     foreach ($playerdata as $key => $value){
-        if ($value['player_id'] === $_POST['player_id']){
+        print($playerdata[$key]['name']);
+//        if ($value['id'] === $_POST['player_id']){
             unset($playerdata[$key]);
             break;
-        }
+//        }
     }
 
     $json_file_players = fopen('../json/players.json', 'w');
@@ -31,6 +31,5 @@
     fwrite($json_file_scores, json_encode($scoresdata));
     fclose($json_file_scores);
 
-    header("Location: ../game.php");
-//}
+    header("Location: ../index.php");
 ?>

@@ -42,6 +42,8 @@ include __DIR__ . '/tpl/body_start.php';
         </form>
 
     </h3>
-
 </div>
-</body>
+
+<?php
+include __DIR__ . '/tpl/body_end.php';
+?>

@@ -23,7 +23,12 @@
     fwrite($json_file, json_encode($playerdata));
     fclose($json_file);
 
-    // Redirect to homepage
-    header("Location: ../game.php");
-    die();
+    if ($player_id == 1) {
+        header("Location: ../waiting_room.php");
+        die();
+    } else {
+        header("Location: ../game.php");
+        die();
+    }
+
 ?>

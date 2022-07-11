@@ -57,28 +57,6 @@ include __DIR__ . '/tpl/body_start.php';
 
 </div>
 
-<div class="winner-container">
-    <h3 id="loser" class="hidden">
-        Gefeliciteerd, je hebt verloren! <br></br>
-        <form action="game.php" method="POST">
-            <button id="replay" class="btn btn-primary">RESTART GAME</button>
-        </form>
-        <form action="scripts/delete_data.php" method="get">
-            <button id="exit" class ="btn btn-primary" >EXIT GAME</button>
-        </form>
-    </h3>
-    <h3 id="winner" class="hidden">
-        Jammer, je hebt gewonnen. <br></br>
-        <form action="game.php" method="POST">
-            <button id="replay" class="btn btn-primary">RESTART GAME</button>
-        </form>
-        <form action="scripts/delete_data.php" method="get">
-            <button id="exit" class ="btn btn-primary" >EXIT GAME</button>
-        </form>
-    </h3>
-</div>
-</body>
-
 <?php
 include __DIR__ . '/tpl/body_end.php';
 ?>

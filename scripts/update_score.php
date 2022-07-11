@@ -7,4 +7,4 @@
     fwrite($json_file, json_encode($playerdata));
     fclose($json_file);
 
-    ?>
+?>

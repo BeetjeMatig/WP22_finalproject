@@ -63,10 +63,6 @@
 	display: none;
 }
 
-.game-container {
-	visibility: hidden;
-}
-
 #intro-text {
 	margin-top: 40px;
 }

@@ -44,19 +44,6 @@ include __DIR__ . '/tpl/body_start.php';
     </p>
 </div>
 
-<div class="game-container">
-    <?php
-    include __DIR__ . '/tpl/player_bar.php';
-    ?>
-    <div class="game-box">
-        <blockquote class="blockquote">
-            <p class="text-center" id="sentence"><span class="highlight" id="highlight"></span><span id="original"></span></p>
-        </blockquote>
-        <textarea class="form-control" id="inputArea" rows="3"></textarea>
-    </div>
-
-</div>
-
 <?php
 include __DIR__ . '/tpl/body_end.php';
 ?>

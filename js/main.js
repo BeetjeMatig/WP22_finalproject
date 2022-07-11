@@ -14,16 +14,12 @@ const jsonData = fetch("./json/sentences.json")
 /* Object which gets send back and forth between the players. */
 var obj = {
     score: 0,
-    started: 0,
-    sentence: "",
-    refresh: 0
+    sentence: ""
 }
 
 var opponentObj = {
     score: 0,
-    started: 0,
-    sentence: "",
-    refresh: 0
+    sentence: ""
 }
 
 /* This function checks if the given input is correct or not and changes the color of the
@@ -74,7 +70,7 @@ function createScore(obj) {
 }
 
 function checkWinCondition() {
-    if (opponentObj.score === 100) {
+    if (opponentObj.score == 100) {
         $("#loser").removeClass("hidden");
         $('.game-container').css("visibility", "hidden")
         $("#replay").removeClass("hidden");
@@ -99,27 +95,15 @@ function changeOpponentData() {
         if (actualPlayerID == 1) {
             opponentObj.score = JSONdata[1].score;
             opponentObj.started = JSONdata[1].started;
-            console.log(opponentObj);
         } else {
             opponentObj.score = JSONdata[0].score;
             opponentObj.started = JSONdata[0].started;
-            console.log(opponentObj);
         }
     });
 }
 
 function updateGameData() {
     $("#opponent-bar").css('width', opponentObj.score + "%")
-}
-
-function isStarted() {
-    if ($('body').is('.waiting')) {
-        console.log("huts");
-        if(opponentObj.started == 1) {
-            window.location.href = "./game.php";
-            console.log("huts2");
-        }
-    }
 }
 
 $(document).keyup(function (event) {
@@ -168,5 +152,4 @@ var intervalID = setInterval(function () {
     changeOpponentData();
     updateGameData();
     checkWinCondition();
-    console.log(actualPlayerID);
-}, 100);
+}, 75);

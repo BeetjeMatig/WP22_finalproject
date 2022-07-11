@@ -10,7 +10,7 @@ include __DIR__ . '/tpl/body_start.php';
 ?>
 
 <body class="game">
-<div>
+<div class="game-container">
     <?php
     include __DIR__ . '/tpl/player_bar.php';
     ?>

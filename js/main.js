@@ -1,6 +1,7 @@
 const bc = new BroadcastChannel('broadcast-channel');
 const input = document.querySelector('inputArea');
 let sentenceID = Math.floor(Math.random() * 31);
+let actualPlayerID = 0;
 
 /* Fetches the sentence from sentences.json that will be used in that game. */
 const jsonData = fetch("./json/sentences.json")
@@ -8,7 +9,16 @@ const jsonData = fetch("./json/sentences.json")
     .then((data) => {
         let sentence = data[sentenceID];
         actualSentence = sentence["context"];
-    });
+});
+
+$(window).on('load', function a () {
+    const playerID = fetch("./json/players.json")
+        .then(response => response.json())
+        .then((data) => {
+            let playerID = data[data.length-1];
+            actualPlayerID = playerID["player_id"];
+            console.log(actualPlayerID);
+    })})
 
 /* Object which gets send back and forth between the players. */
 var obj = {
@@ -18,30 +28,11 @@ var obj = {
     refresh: 0
 }
 
-function stringifyObject(obj) {
-    return JSON.stringify(obj);
-}
-
-/* The Broadcast API check that when they receive a message, if the game should start or not
-If the game has already started it will check every time if the win condition is met. */
-bc.onmessage = (MessageEvent) => {
-    if (MessageEvent.data.started === 1) {
-        if (obj.started === 0) {
-            $("#original").html(MessageEvent.data.sentence);
-            obj.started = 1;
-            $(".game-container").css("visibility", "visible");
-            $('#intro-text').css("display", "none");
-        }
-        if (MessageEvent.data.refresh === 1) {
-            window.location.reload();
-        }
-        checkWinCondition(MessageEvent.data);
-        $("#opponent-bar").css('width', MessageEvent.data.score + "%");
-    }
-}
-
-function sendArray(obj) {
-    bc.postMessage(obj);
+var opponentObj = {
+    score: 0,
+    started: 0,
+    sentence: "",
+    refresh: 0
 }
 
 /* This function checks if the given input is correct or not and changes the color of the
@@ -91,24 +82,70 @@ function createScore(obj) {
     return obj;
 }
 
-/* Checks the win condition of the game. If you receive the object with a score of 100
-it means that the other player has won. It will make the corresponding winner/loser 
-message appear. */
-function checkWinCondition(data) {
-    if (data.score === 100) {
+function isStarted() {
+    if (opponentObj.started == 1) {
+        if (obj.started === 0) {
+            $("#original").html(opponentObj.sentence);
+            obj.started = 1;
+            $(".game-container").css("visibility", "visible");
+            $('#intro-text').css("display", "none");
+        } if (opponentObj.refresh === 1) {
+            window.location.reload();
+        }
+        checkWinCondition();
+        $("#opponent-bar").css('width', opponentObj.score + "%");
+    }
+}
+
+function checkWinCondition() {
+    if (opponentObj.score === 100) {
         $("#loser").removeClass("hidden");
         $('.game-container').css("visibility", "hidden")
         $("#replay").removeClass("hidden");
     }
 }
 
-/* Every time a keyup or keydown event happens, it will check if the given input is valid
-by calling validateInput. It will also send a new object to the other player with the updated
-score. */
+function readGameData(callback) {
+    var opponentData = new XMLHttpRequest();
+    opponentData.overrideMimeType("application/json");
+    opponentData.open("GET", "./json/gamestates.json", true);
+    opponentData.onreadystatechange = function () {
+        if (opponentData.readyState == 4 && opponentData.status == 200) {
+            callback(opponentData.responseText);
+        }
+    }
+    opponentData.send(null);
+}
+
+function changeOpponentData() {
+    readGameData(function (data) {;
+        var JSONdata = JSON.parse(data);
+        opponentObj.score = JSONdata[0].score;
+        opponentObj.started = JSONdata[0].started;
+        opponentObj.sentence = JSONdata[0].sentence;
+        opponentObj.refresh = JSONdata[0].refresh;
+        console.log(JSONdata[0]);   
+        console.log(opponentObj);
+    });
+}
+
+function refresh() {
+    obj.refresh = 1;
+    sentArray(obj);
+    if (opponentObj.refresh === 1) {
+       jsonData();
+       opponentObj.refresh = 0;
+       obj.refresh = 0;
+    }
+}
+
+function sendGameData() {
+    // stuurt de data naar de server
+}
+
 $(document).keyup(function (event) {
     var keycode = event.key;
     validateInput(keycode);
-    sendArray(createScore(obj));
     $("#own-bar").css('width', obj.score + "%")
     if (obj.score === 100) {
         startConfetti();
@@ -116,12 +153,14 @@ $(document).keyup(function (event) {
         $('.game-container').css("visibility", "hidden");
         $("#replay").removeClass("hidden");
     }
+    changeOpponentData();
+    isStarted();
 });
 
 $(document).keydown(function (event) {
+    console.log(actualPlayerID);
     var keycode = event.key;
     validateInput(keycode);
-    sendArray(createScore(obj));
     $("#own-bar").css('width', obj.score + "%")
     if (obj.score === 100) {
         startConfetti();
@@ -129,41 +168,30 @@ $(document).keydown(function (event) {
         $('.game-container').css("visibility", "hidden");
         $("#replay").removeClass("hidden");
     }
+    changeOpponentData();
+    isStarted();
 });
 
-/* If the player presses enter the game starts. */
-function startGame() {
-    if (obj.started === 0) {
-        $('#intro-text').css("display", "none");
-        $('.game-container').css("visibility", "visible")
-        $("#original").html(actualSentence);
-        obj.sentence = actualSentence;
-        obj.started = 1;
-    }
-    sendArray(obj);
-    callingAjax();
-}
 
-/* Refreshes page */
-function refresh() {
-    obj.refresh = 1;
-    sendArray(obj);
-    window.location.reload();
-}
-
-function callingAjax() {
-    $.ajax({
-        url: "./json/players.json",
-        success: function (data) {
-            console.log(data);
-        }
-    });
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            return data;
-        }
+$(document).keydown(function() {
+    if (actualPlayerID === 1) {
+        if ($('body').is('.game')) {
+            $.ajax({
+                type: "GET",
+                url: "./scripts/update_score.php",
+                data: {score: obj.score}
+            })}}
+    if (actualPlayerID === 2) {
+        if ($('body').is('.game')) {
+            $.ajax({
+                type: "GET",
+                url: "./scripts/update_score_2.php",
+                data: {score: obj.score}
+            })}
     }
-    xhr.open("GET", "./json/players.json");
-    xhr.send();
-}
+})
+
+
+
+
+

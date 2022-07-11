@@ -9,7 +9,8 @@ include __DIR__ . '/tpl/head.php';
 include __DIR__ . '/tpl/body_start.php';
 ?>
 
-<p>Waiting for other speler a niffo</p>
+<body class="waiting">
+    <p>Waiting for other speler a niffo</p>
 
 <?php
 include __DIR__ . '/tpl/body_end.php';

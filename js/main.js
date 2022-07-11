@@ -1,7 +1,7 @@
 const bc = new BroadcastChannel('broadcast-channel');
 const input = document.querySelector('inputArea');
 let sentenceID = Math.floor(Math.random() * 31);
-let actualPlayerID = 0;
+let actualPlayerID = new URLSearchParams(window.location.search).get('player_id');
 
 /* Fetches the sentence from sentences.json that will be used in that game. */
 const jsonData = fetch("./json/sentences.json")
@@ -10,15 +10,6 @@ const jsonData = fetch("./json/sentences.json")
         let sentence = data[sentenceID];
         actualSentence = sentence["context"];
 });
-
-$(window).on('load', function a () {
-    const playerID = fetch("./json/players.json")
-        .then(response => response.json())
-        .then((data) => {
-            let playerID = data[data.length-1];
-            actualPlayerID = playerID["player_id"];
-            console.log(actualPlayerID);
-    })})
 
 /* Object which gets send back and forth between the players. */
 var obj = {
@@ -82,21 +73,6 @@ function createScore(obj) {
     return obj;
 }
 
-function isStarted() {
-    if (opponentObj.started == 1) {
-        if (obj.started === 0) {
-            $("#original").html(opponentObj.sentence);
-            obj.started = 1;
-            $(".game-container").css("visibility", "visible");
-            $('#intro-text').css("display", "none");
-        } if (opponentObj.refresh === 1) {
-            window.location.reload();
-        }
-        checkWinCondition();
-        $("#opponent-bar").css('width', opponentObj.score + "%");
-    }
-}
-
 function checkWinCondition() {
     if (opponentObj.score === 100) {
         $("#loser").removeClass("hidden");
@@ -108,7 +84,7 @@ function checkWinCondition() {
 function readGameData(callback) {
     var opponentData = new XMLHttpRequest();
     opponentData.overrideMimeType("application/json");
-    opponentData.open("GET", "./json/gamestates.json", true);
+    opponentData.open("GET", "./json/players.json", true);
     opponentData.onreadystatechange = function () {
         if (opponentData.readyState == 4 && opponentData.status == 200) {
             callback(opponentData.responseText);
@@ -120,27 +96,30 @@ function readGameData(callback) {
 function changeOpponentData() {
     readGameData(function (data) {;
         var JSONdata = JSON.parse(data);
-        opponentObj.score = JSONdata[0].score;
-        opponentObj.started = JSONdata[0].started;
-        opponentObj.sentence = JSONdata[0].sentence;
-        opponentObj.refresh = JSONdata[0].refresh;
-        console.log(JSONdata[0]);   
-        console.log(opponentObj);
+        if (actualPlayerID == 1) {
+            opponentObj.score = JSONdata[1].score;
+            opponentObj.started = JSONdata[1].started;
+            console.log(opponentObj);
+        } else {
+            opponentObj.score = JSONdata[0].score;
+            opponentObj.started = JSONdata[0].started;
+            console.log(opponentObj);
+        }
     });
 }
 
-function refresh() {
-    obj.refresh = 1;
-    sentArray(obj);
-    if (opponentObj.refresh === 1) {
-       jsonData();
-       opponentObj.refresh = 0;
-       obj.refresh = 0;
-    }
+function updateGameData() {
+    $("#opponent-bar").css('width', opponentObj.score + "%")
 }
 
-function sendGameData() {
-    // stuurt de data naar de server
+function isStarted() {
+    if ($('body').is('.waiting')) {
+        console.log("huts");
+        if(opponentObj.started == 1) {
+            window.location.href = "./game.php";
+            console.log("huts2");
+        }
+    }
 }
 
 $(document).keyup(function (event) {
@@ -153,12 +132,9 @@ $(document).keyup(function (event) {
         $('.game-container').css("visibility", "hidden");
         $("#replay").removeClass("hidden");
     }
-    changeOpponentData();
-    isStarted();
 });
 
 $(document).keydown(function (event) {
-    console.log(actualPlayerID);
     var keycode = event.key;
     validateInput(keycode);
     $("#own-bar").css('width', obj.score + "%")
@@ -168,20 +144,17 @@ $(document).keydown(function (event) {
         $('.game-container').css("visibility", "hidden");
         $("#replay").removeClass("hidden");
     }
-    changeOpponentData();
-    isStarted();
 });
 
-
 $(document).keydown(function() {
-    if (actualPlayerID === 1) {
+    if (actualPlayerID == 1) {
         if ($('body').is('.game')) {
             $.ajax({
                 type: "GET",
                 url: "./scripts/update_score.php",
                 data: {score: obj.score}
             })}}
-    if (actualPlayerID === 2) {
+    if (actualPlayerID == 2) {
         if ($('body').is('.game')) {
             $.ajax({
                 type: "GET",
@@ -191,7 +164,9 @@ $(document).keydown(function() {
     }
 })
 
-
-
-
-
+var intervalID = setInterval(function () {
+    changeOpponentData();
+    updateGameData();
+    checkWinCondition();
+    console.log(actualPlayerID);
+}, 100);

@@ -15,7 +15,7 @@
         'player_id' => $player_id,
         'name' => $_GET['username'],
         'score' => 0,
-        'games_won' => 0
+        'started' => 1
     ]);
 
     // Save to external file
@@ -24,10 +24,10 @@
     fclose($json_file);
 
     if ($player_id == 1) {
-        header("Location: ../waiting_room.php");
+        header("Location: ../game.php?player_id=$player_id");
         die();
     } else {
-        header("Location: ../game.php");
+        header("Location: ../game.php?player_id=$player_id");
         die();
     }
 

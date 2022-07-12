@@ -7,5 +7,3 @@
     $json_file = fopen('../json/players.json', 'w');
     fwrite($json_file, json_encode($playerdata));
     fclose($json_file);
-
-?>

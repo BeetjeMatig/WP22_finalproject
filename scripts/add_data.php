@@ -31,4 +31,3 @@
         header("Location: ../game.php?player_id=$player_id");
         die();
     }
-?>

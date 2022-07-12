@@ -11,4 +11,3 @@
     fclose($json_file_players);
 
     header("Location: ../index.php");
-?>

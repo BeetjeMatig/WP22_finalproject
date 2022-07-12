@@ -7,9 +7,9 @@ let sentenceID;
 const jsonData = fetch("./json/players.json")
     .then(response => response.json())
     .then((data) => {
-     playerData = data[(actualPlayerID - 1)];
-     sentenceID = playerData["sentence"];
-});
+        playerData = data[(actualPlayerID - 1)];
+        sentenceID = playerData["sentence"];
+    });
 
 /**
  * Fetches a sentence for the game to use from sentences.json.
@@ -29,7 +29,7 @@ fetch("./json/sentences.json")
             changeOpponentData();
             updateGameData();
         }
-});
+    });
 
 function loadSentence() {
     if ($('#original').text() == "") {
@@ -174,7 +174,8 @@ function readGameData(callback) {
  * This function is called on an interval and updates the player's score.
  */
 function changeOpponentData() {
-    readGameData(function (data) {;
+    readGameData(function (data) {
+        ;
         var JSONdata = JSON.parse(data);
         if (actualPlayerID == 1) {
             if (JSONdata.length > 1) {
@@ -230,15 +231,18 @@ function updateGameData() {
             $.ajax({
                 type: "GET",
                 url: "./scripts/update_score.php",
-                data: {score: obj.score, sentence: actualSentence}
-            })}}
+                data: { score: obj.score, sentence: actualSentence }
+            })
+        }
+    }
     if (actualPlayerID == 2) {
         if ($('body').is('.game')) {
             $.ajax({
                 type: "GET",
                 url: "./scripts/update_score_2.php",
-                data: {score: obj.score, sentence: obj.sentence}
-            })}
+                data: { score: obj.score, sentence: obj.sentence }
+            })
+        }
     }
 }
 

@@ -4,7 +4,7 @@ let actualPlayerID = new URLSearchParams(window.location.search).get('player_id'
 const input = document.querySelector('inputArea');
 let sentenceID;
 
-fetch("./json/players.json")
+const jsonData = fetch("./json/players.json")
     .then(response => response.json())
     .then((data) => {
      playerData = data[(actualPlayerID - 1)];

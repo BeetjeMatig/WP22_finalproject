@@ -16,7 +16,7 @@
     // from player one is selected.
     if ($player_id === 1) {
         $sentence_number = rand(0, 30);
-    }else{
+    } else {
         $sentence_number = $playerdata[1].$sentence_number;
     }
 
@@ -24,7 +24,7 @@
         'player_id' => $player_id,
         'name' => $_GET['username'],
         'score' => 0,
-        'sentence' => ''
+        'sentence' => $sentence_number
     ]);
 
     // Save to external file

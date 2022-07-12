@@ -14,7 +14,6 @@ const jsonData = fetch("./json/players.json")
 /**
  * Fetches a sentence for the game to use from sentences.json.
  */
-
 fetch("./json/sentences.json")
     .then(response => response.json())
     .then((data) => {
@@ -31,6 +30,9 @@ fetch("./json/sentences.json")
         }
     });
 
+/**
+ * Loads the sentence onto the page.
+ */
 function loadSentence() {
     if ($('#original').text() == "") {
         if (actualPlayerID == 1) {
@@ -47,7 +49,6 @@ function loadSentence() {
 /**
  * Object which contains the score and the sentence of the player.
  */
-
 var obj = {
     score: 0,
     sentence: ""
@@ -62,7 +63,7 @@ var opponentObj = {
 }
 
 /**
- * This function is called when the player presses a key and it checks if the key is correct
+ * This function is called when the player presses a key and checks if the key is correct
  * with the next character in the sentence. If so, it changes the highlighted part of the text 
  * in the changeSpan function.
  * @summary: This function is called when the player presses a key.
@@ -92,7 +93,7 @@ function aContainsB(a, b) {
 /**
  * This function changes the highlighted part of the text which is typed correctly.
  * Every time a character is typed, the function checks if it should be the next character
- * typed. If so, it appends the charachter to the highlghted part and it gets removed
+ * typed. If so, it appends the character to the highlighted part removes it
  * from the original span. The createScore function is also called.
  * @param {*} keycode - Unicode code of the key which was pressed
  */
@@ -140,7 +141,7 @@ function checkWinConditionOpponent() {
 
 /**
  * This function is called on a keypress and checks if the player has met the
- * win condition (a score of 100/100). If so, it the player is shown a winner screen.
+ * win condition (a score of 100/100). If so, the player is shown a winner screen.
  */
 function checkWinConditionPlayer() {
     if (obj.score === 100) {
@@ -156,7 +157,7 @@ function checkWinConditionPlayer() {
  * This function reads the game data from a JSON file and uses a callback
  * function to pass the data back to another function which can handle the
  * data.
- * @param {*} callback - Allows this function to be passed as a paramter
+ * @param {*} callback - Allows this function to be passed as a parameter
  */
 function readGameData(callback) {
     var opponentData = new XMLHttpRequest();
@@ -203,7 +204,7 @@ function updateOpponentProgressBar() {
  * the player is shown a win screen.
  * 
  * Both keyup and keydown are used because the event would have trouble being
- * called whenevever the player presses 2 keys at the same time.
+ * called whenever the player presses 2 keys at the same time.
  */
 $(document).keyup(function (event) {
     var keycode = event.key;

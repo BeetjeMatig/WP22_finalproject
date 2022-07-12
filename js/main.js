@@ -25,7 +25,11 @@ fetch("./json/sentences.json")
             obj.sentence = actualSentence;
             updateGameData();
         }
-    changeOpponentData();
+        if (actualPlayerID == 2) {
+            changeOpponentData();
+            updateGameData();
+        }
+    loadSentence();
 });
 
 function loadSentence() {
@@ -176,6 +180,7 @@ function changeOpponentData() {
         } else {
             opponentObj.score = JSONdata[0].score;
             opponentObj.sentence = JSONdata[0].sentence;
+            obj.sentence = JSONdata[0].sentence;
         }
     });
 }
@@ -229,7 +234,7 @@ function updateGameData() {
             $.ajax({
                 type: "GET",
                 url: "./scripts/update_score_2.php",
-                data: {score: obj.score}
+                data: {score: obj.score, sentence: obj.sentence}
             })}
     }
 }

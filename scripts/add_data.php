@@ -14,7 +14,8 @@
     array_push($playerdata, [
         'player_id' => $player_id,
         'name' => $_GET['username'],
-        'score' => 0
+        'score' => 0,
+        'sentence' => ''
     ]);
 
     // Save to external file
@@ -29,5 +30,4 @@
         header("Location: ../game.php?player_id=$player_id");
         die();
     }
-
 ?>

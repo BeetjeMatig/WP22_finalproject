@@ -9,10 +9,26 @@ const input = document.querySelector('inputArea');
 const jsonData = fetch("./json/sentences.json")
     .then(response => response.json())
     .then((data) => {
-        let sentenceID = Math.floor(Math.random() * 31);
-        let sentence = data[sentenceID];
-        actualSentence = sentence["context"];
+        if (actualPlayerID == 1) {
+            let sentenceID = Math.floor(Math.random() * 31);
+            let sentence = data[sentenceID];
+            actualSentence = sentence["context"];
+            obj.sentence = actualSentence;
+            updateGameData();
+        }
+    changeOpponentData();
 });
+
+function loadSentence() {
+    if (actualPlayerID == 1) {
+        $('#original').empty();
+        $('#original').append(obj.sentence);
+    }
+    if (actualPlayerID == 2) {
+        $('#original').empty();
+        $('#original').append(opponentObj.sentence);
+    }
+}
 
 /**
  * Object which contains the score and the sentence of the player.
@@ -149,6 +165,7 @@ function changeOpponentData() {
             }
         } else {
             opponentObj.score = JSONdata[0].score;
+            opponentObj.sentence = JSONdata[0].sentence;
         }
     });
 }
@@ -195,7 +212,7 @@ function updateGameData() {
             $.ajax({
                 type: "GET",
                 url: "./scripts/update_score.php",
-                data: {score: obj.score}
+                data: {score: obj.score, sentence: actualSentence}
             })}}
     if (actualPlayerID == 2) {
         if ($('body').is('.game')) {

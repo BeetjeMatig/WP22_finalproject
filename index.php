@@ -19,11 +19,11 @@ include __DIR__ . '/tpl/body_start.php';
     <p>The game (currently) works like: open two instances of the game on the same device
         on two different tabs, then start typing away and see who is fastest!
     </p>
-    <form action="scripts/add_data.php" method="get">
+    <form action="scripts/delete_data.php" method="get">
         <div class="form-group">
             <input type="text" class="form-control" id="username" name="username">
         </div>
-        <button class="btn btn-primary" name="submit" id="submit" onclick="startGame()">Press here to start the game!</button>
+        <button class="btn btn-primary" name="submit" id="submit">Press here to start the game!</button>
     </form>
     
     <h3>F.A.Q.</h3>

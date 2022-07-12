@@ -2,11 +2,20 @@
 let actualPlayerID = new URLSearchParams(window.location.search).get('player_id');
 
 const input = document.querySelector('inputArea');
+let sentenceID;
+
+fetch("./json/players.json")
+    .then(response => response.json())
+    .then((data) => {
+     playerData = data[(actualPlayerID - 1)];
+     sentenceID = playerData["sentence"];
+});
 
 /**
  * Fetches a sentence for the game to use from sentences.json.
  */
-const jsonData = fetch("./json/sentences.json")
+
+fetch("./json/sentences.json")
     .then(response => response.json())
     .then((data) => {
         if (actualPlayerID == 1) {
@@ -33,6 +42,7 @@ function loadSentence() {
 /**
  * Object which contains the score and the sentence of the player.
  */
+
 var obj = {
     score: 0,
     sentence: ""

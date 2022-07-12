@@ -5,12 +5,21 @@
 
     // Generate player ID
     $player_id = 0;
-    print($player_id);
+    $sentence_number = 0;
     foreach ($playerdata as $key => $value){
         $player_id = $value['player_id'];
     }
 
     $player_id += 1;
+    // if it is the first player, a new sentence is selected, using a random number between 0 and 31,
+    // This is not the id of the sentence, but rather the index. If there is already a player, the sentence
+    // from player one is selected.
+    if ($player_id === 1) {
+        $sentence_number = rand(0, 30);
+    }else{
+        $sentence_number = $playerdata[1].$sentence_number;
+    }
+
     array_push($playerdata, [
         'player_id' => $player_id,
         'name' => $_GET['username'],

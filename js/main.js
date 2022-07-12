@@ -93,7 +93,7 @@ function aContainsB(a, b) {
 /**
  * This function changes the highlighted part of the text which is typed correctly.
  * Every time a character is typed, the function checks if it should be the next character
- * typed. If so, it appends the character to the highlighted part removes it
+ * typed. If so, it appends the character to the highlighted part and removes it
  * from the original span. The createScore function is also called.
  * @param {*} keycode - Unicode code of the key which was pressed
  */

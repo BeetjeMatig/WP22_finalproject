@@ -11,6 +11,12 @@
     }
 
     $player_id += 1;
+    if($player_id !== 2) {
+        foreach ($playerdata as $key => $value) {
+            array_pop($playerdata);
+            $player_id = 1;
+        }
+    }
 
     array_push($playerdata, [
         'player_id' => $player_id,
@@ -24,10 +30,5 @@
     fwrite($json_file, json_encode($playerdata));
     fclose($json_file);
 
-    if ($player_id == 1) {
-        header("Location: ../game.php?player_id=$player_id");
-        die();
-    } else {
-        header("Location: ../game.php?player_id=$player_id");
-        die();
-    }
+    header("Location: ../game.php?player_id=$player_id");
+    die();

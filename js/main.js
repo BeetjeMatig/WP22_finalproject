@@ -2,21 +2,32 @@
 let actualPlayerID = new URLSearchParams(window.location.search).get('player_id');
 
 const input = document.querySelector('inputArea');
+let sentenceID;
+
+fetch("./json/players.json")
+    .then(response => response.json())
+    .then((data) => {
+     playerData = data[(actualPlayerID - 1)];
+     sentenceID = playerData["sentence"];
+});
 
 /**
  * Fetches a sentence for the game to use from sentences.json.
  */
-const jsonData = fetch("./json/sentences.json")
+
+fetch("./json/sentences.json")
     .then(response => response.json())
     .then((data) => {
-        let sentenceID = Math.floor(Math.random() * 31);
+        // let sentenceID = Math.floor(Math.random() * 31);
         let sentence = data[sentenceID];
-        actualSentence = sentence["context"];
-});
+        let actualSentence = sentence["context"];
+        document.getElementById("sentence").innerHTML = actualSentence;
+    });
 
 /**
  * Object which contains the score and the sentence of the player.
  */
+
 var obj = {
     score: 0,
     sentence: ""

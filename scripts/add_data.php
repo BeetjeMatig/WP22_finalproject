@@ -14,8 +14,7 @@
     array_push($playerdata, [
         'player_id' => $player_id,
         'name' => $_GET['username'],
-        'score' => 0,
-        'started' => 1
+        'score' => 0
     ]);
 
     // Save to external file

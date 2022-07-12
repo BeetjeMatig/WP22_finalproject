@@ -10,6 +10,7 @@
         $player_id = $value['player_id'];
     }
 
+    // Checks if the player ID is 2, and if it isn't it clears the JSON file
     $player_id += 1;
     if($player_id !== 2) {
         foreach ($playerdata as $key => $value) {
@@ -18,6 +19,7 @@
         }
     }
 
+    // Writes the data to the JSON file
     array_push($playerdata, [
         'player_id' => $player_id,
         'name' => $_GET['username'],

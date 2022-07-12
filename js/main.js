@@ -134,6 +134,7 @@ function checkWinConditionOpponent() {
         $("#loser").removeClass("hidden");
         $('.game-container').css("visibility", "hidden")
         $("#replay").removeClass("hidden");
+        clearInterval(intervalID);
     }
 }
 
@@ -147,6 +148,7 @@ function checkWinConditionPlayer() {
         $("#winner").removeClass("hidden");
         $('.game-container').css("visibility", "hidden");
         $("#replay").removeClass("hidden");
+        clearInterval(intervalID);
     }
 }
 

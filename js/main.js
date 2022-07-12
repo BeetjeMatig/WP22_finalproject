@@ -90,7 +90,7 @@ function readGameData(callback) {
 }
 
 function changeOpponentData() {
-    readGameData(function (data) {;
+    readGameData(function (data) {
         var JSONdata = JSON.parse(data);
         if (actualPlayerID == 1) {
             opponentObj.score = JSONdata[1].score;

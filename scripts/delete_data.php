@@ -10,5 +10,5 @@
     fwrite($json_file_players, json_encode($playerdata));
     fclose($json_file_players);
 
-    header("Location: ../scripts/add_data.php");
+    header("Location: ../index.php");
 ?>

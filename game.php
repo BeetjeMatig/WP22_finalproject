@@ -9,6 +9,9 @@ include __DIR__ . '/tpl/head.php';
 include __DIR__ . '/tpl/body_start.php';
 ?>
 
+<script src="js/main.js" defer></script>
+<script src="styleJS/confetti.js" defer></script>
+
 <body class="game">
 <div class="game-container">
     <?php

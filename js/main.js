@@ -144,7 +144,9 @@ function changeOpponentData() {
     readGameData(function (data) {;
         var JSONdata = JSON.parse(data);
         if (actualPlayerID == 1) {
-            opponentObj.score = JSONdata[1].score;
+            if (JSONdata.length > 1) {
+                opponentObj.score = JSONdata[1].score;
+            }
         } else {
             opponentObj.score = JSONdata[0].score;
         }

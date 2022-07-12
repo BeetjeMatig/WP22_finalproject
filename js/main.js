@@ -29,17 +29,18 @@ fetch("./json/sentences.json")
             changeOpponentData();
             updateGameData();
         }
-    loadSentence();
 });
 
 function loadSentence() {
-    if (actualPlayerID == 1) {
-        $('#original').empty();
-        $('#original').append(obj.sentence);
-    }
-    if (actualPlayerID == 2) {
-        $('#original').empty();
-        $('#original').append(opponentObj.sentence);
+    if ($('#original').text() == "") {
+        if (actualPlayerID == 1) {
+            $('#original').empty();
+            $('#original').append(obj.sentence);
+        }
+        if (actualPlayerID == 2) {
+            $('#original').empty();
+            $('#original').append(opponentObj.sentence);
+        }
     }
 }
 
@@ -247,4 +248,6 @@ var intervalID = setInterval(function () {
     changeOpponentData();
     updateOpponentProgressBar();
     checkWinConditionOpponent();
+    updateGameData();
+    loadSentence();
 }, 100);
